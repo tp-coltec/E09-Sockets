@@ -10,8 +10,7 @@ public class Servidor {
         try {
             ServerSocket server = new ServerSocket(5000);
             System.out.println("Listening...");
-            boolean exit = false;
-            while(!exit) {
+            while(true) {
                 Socket client = server.accept();
                 System.out.println("Connected at: " + client.getInetAddress().getHostAddress());
 
@@ -19,6 +18,10 @@ public class Servidor {
                 String data = inData.readUTF();
                 System.out.println("Received: " + data);
                 inData.close();
+
+                if(data.equals("shutdown")) {
+                    break;
+                }
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
